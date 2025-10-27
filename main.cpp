@@ -7,6 +7,7 @@
 using namespace std;
 using namespace std::chrono;
 
+// Comment #1: Function prototypes
 int readCodesToVector(vector<string> &codesVector);
 int readCodesToList(list<string> &codesList);
 int readCodesToSet(set<string> &codesSet);
@@ -22,14 +23,17 @@ int deleteList(list<string> &codesList);
 int deleteSet(set<string> &codesSet);
 
 int main() {
+    // Comment #2: Define vectors, lists, and sets to hold codes
     vector<string> codesVector;
     list<string> codesList;
     set<string> codesSet;
 
+    // Comment #3: Read codes into each data structure and time the operations
     int readVectorTime = readCodesToVector(codesVector);
     int readListTime = readCodesToList(codesList);
     int readSetTime = readCodesToSet(codesSet);
 
+    // Comment #4: Print the timing results
     cout << "--" << readSetTime << "--" << endl;
     cout << "Operation    Vector      List       Set" << endl;
     printRightJustified("Read", 9);
@@ -38,6 +42,7 @@ int main() {
     printRightJustified(to_string(readSetTime), 10); 
     cout << endl;
 
+    // Comment #5: Sort the data structures and time the operations
     int sortVectorTime = sortVector(codesVector);
     int sortListTime = sortList(codesList);
     int sortSetTime = sortSet(codesSet);
@@ -48,6 +53,7 @@ int main() {
     printRightJustified(to_string(sortSetTime), 10); 
     cout << endl;
 
+    // Comment #6: Insert into the data structures and time the operations
     int insertVectorTime = insertVector(codesVector);
     int insertListTime = insertList(codesList);
     int insertSetTime = insertSet(codesSet);
@@ -58,6 +64,7 @@ int main() {
     printRightJustified(to_string(insertSetTime), 10); 
     cout << endl;
 
+    // Comment #7: Delete from the data structures and time the operations
     int deleteVectorTime = deleteVector(codesVector);
     int deleteListTime = deleteList(codesList);
     int deleteSetTime = deleteSet(codesSet);
@@ -66,28 +73,29 @@ int main() {
     printRightJustified(to_string(deleteVectorTime), 10); 
     printRightJustified(to_string(deleteListTime), 10); 
     printRightJustified(to_string(deleteSetTime), 10); 
-    cout << endl;
+    cout << endl << endl;
 
     return 0;
 }
 
 int readCodesToVector(vector<string> &codesVector)
 {
+    // Comment #8: Read codes from file into vector and time the operation
     ifstream fin("Codes.txt");
     string code;
 
     auto start = high_resolution_clock::now();
-    while (fin >> code)
+    while (fin >> code) // Comment #9: Read each code from the file
     {
-        codesVector.push_back(code);
+        codesVector.push_back(code); // Comment #10: Add code to vector
     }
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(end - start);
 
-    fin.close();
+    fin.close(); // Comment #11: Close the file
 
-    return duration.count();
+    return duration.count(); // Comment #12: Return the time taken in microseconds
 }
 
 int readCodesToList(list<string> &codesList)
@@ -98,7 +106,7 @@ int readCodesToList(list<string> &codesList)
     auto start = high_resolution_clock::now();
     while (fin >> code)
     {
-        codesList.push_back(code);
+        codesList.push_back(code); // Comment #13: Add code to list
     }
 
     auto end = high_resolution_clock::now();
@@ -117,7 +125,7 @@ int readCodesToSet(set<string> &codesSet)
     auto start = high_resolution_clock::now();
     while (fin >> code)
     {
-        codesSet.insert(code);
+        codesSet.insert(code); // Comment #14: Add code to set using insert
     }
 
     auto end = high_resolution_clock::now();
@@ -130,14 +138,14 @@ int readCodesToSet(set<string> &codesSet)
 
 void printRightJustified(string text, int width) 
 {
-    cout << setw(width) << text;
+    cout << setw(width) << text; // Comment #15: Print text right-justified with specified width
 }
 
 int sortVector(vector<string> &codes)
 {
     auto start = high_resolution_clock::now();
     
-    sort(codes.begin(), codes.end());
+    sort(codes.begin(), codes.end()); // Comment #16: Sort the vector using std::sort
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(end - start);
@@ -149,7 +157,7 @@ int sortList(list<string> &codes)
 {
     auto start = high_resolution_clock::now();
     
-    codes.sort();
+    codes.sort(); // Comment #17: Sort the list using its member sort function
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(end - start);
@@ -159,7 +167,7 @@ int sortList(list<string> &codes)
 
 int sortSet(set<string> &codes)
 {
-    // no sorting is required for set because item is sorted by default so returning -1
+    // Comment #18: No sorting is required for set because item is sorted by default so returning -1
     return -1;
 }
 
@@ -167,7 +175,8 @@ int insertVector(vector<string> &codesVector)
 {
     auto start = high_resolution_clock::now();
     
-    codesVector.insert(codesVector.begin() + 10000, "TESTCODE");
+    // Comment #19: Insert "TESTCODE" at index 10000
+    codesVector.insert(codesVector.begin() + 10000, "TESTCODE"); 
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(end - start);
@@ -179,6 +188,7 @@ int insertList(list<string> &codesList)
 {
     auto start = high_resolution_clock::now();
     
+    // Comment #20: Insert "TESTCODE" at the 10000th position in the list
     auto it = next(codesList.begin(), 10000);
     codesList.insert(it, "TESTCODE");
 
@@ -192,6 +202,7 @@ int insertSet(set<string> &codesSet)
 {
     auto start = high_resolution_clock::now();
     
+    // Comment #21: Insert "TESTCODE" into the set
     codesSet.insert("TESTCODE");
 
     auto end = high_resolution_clock::now();
@@ -204,6 +215,7 @@ int deleteVector(vector<string> &codesVector)
 {
     auto start = high_resolution_clock::now();
     
+    // Comment #22: Delete the element at index 10000
     codesVector.erase(codesVector.begin() + 10000);
 
     auto end = high_resolution_clock::now();
@@ -216,6 +228,7 @@ int deleteList(list<string> &codesList)
 {
     auto start = high_resolution_clock::now();
     
+    // Comment #23: Delete the element at the 10000th position in the list
     auto it = next(codesList.begin(), 10000);
     codesList.erase(it);
 
@@ -229,6 +242,7 @@ int deleteSet(set<string> &codesSet)
 {
     auto start = high_resolution_clock::now();
     
+    // Comment #24: Delete the element at the 10000th position in the set
     auto it = next(codesSet.begin(), 10000);
     codesSet.erase(it);
 
