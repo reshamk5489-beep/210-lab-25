@@ -14,9 +14,9 @@ void printRightJustified(string text, int width);
 int sortVector(vector<string> &codes);
 int sortList(list<string> &codes);
 int sortSet(set<string> &codes);
-int insertVector(vector<string> &codesVector, string val);
-int insertList(list<string> &codesList, string val);
-int insertSet(set<string> &codesSet, string val);
+int insertVector(vector<string> &codesVector);
+int insertList(list<string> &codesList);
+int insertSet(set<string> &codesSet);
 
 int main() {
     vector<string> codesVector;
@@ -43,6 +43,16 @@ int main() {
     printRightJustified(to_string(sortVectorTime), 10); 
     printRightJustified(to_string(sortListTime), 10); 
     printRightJustified(to_string(sortSetTime), 10); 
+    cout << endl;
+
+    int insertVectorTime = insertVector(codesVector);
+    int insertListTime = insertList(codesList);
+    int insertSetTime = insertSet(codesSet);
+
+    printRightJustified("Insert", 9);
+    printRightJustified(to_string(insertVectorTime), 10); 
+    printRightJustified(to_string(insertListTime), 10); 
+    printRightJustified(to_string(insertSetTime), 10); 
     cout << endl;
 
     return 0;
@@ -140,24 +150,45 @@ int sortSet(set<string> &codes)
     return -1;
 }
 
-int insertVector(vector<string> &codesVector, string val)
+int insertVector(vector<string> &codesVector)
 {
     auto start = high_resolution_clock::now();
     
-    codesVector.insert(codesVector.begin() + 20000, "TESTCODE");
+    codesVector.insert(codesVector.begin() + 10000, "TESTCODE");
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
+    cout << "Vector size: " << codesVector.size() << endl;
+
     return duration.count() * 1000;
 }
 
-int insertList(list<string> &codesList, string val)
+int insertList(list<string> &codesList)
 {
+    auto start = high_resolution_clock::now();
+    
+    auto it = next(codesList.begin(), 10000);
+    codesList.insert(it, "TESTCODE");
 
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    cout << "List size: " << codesList.size() << endl;
+
+    return duration.count() * 1000;
 }
 
-int insertSet(set<string> &codesSet, string val)
+int insertSet(set<string> &codesSet)
 {
+    auto start = high_resolution_clock::now();
+    
+    codesSet.insert("TESTCODE");
 
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    cout << "Set size: " << codesSet.size() << endl;
+
+    return duration.count() * 1000;
 }
