@@ -7,9 +7,9 @@
 using namespace std;
 using namespace std::chrono;
 
-int readCodesToVector();
-int readCodesToList();
-int readCodesToSet();
+int readCodesToVector(vector<string> &codesVector);
+int readCodesToList(list<string> &codesList);
+int readCodesToSet(set<string> &codesSet);
 void printRightJustified(string text, int width);
 int sortVector(vector<string> &codes);
 int sortList(list<string> &codes);
@@ -17,9 +17,13 @@ int sortSet(set<string> &codes);
 
 
 int main() {
-    int readVectorTime = readCodesToVector();
-    int readListTime = readCodesToList();
-    int readSetTime = readCodesToSet();
+    vector<string> codesVector;
+    list<string> codesList;
+    set<string> codesSet;
+
+    int readVectorTime = readCodesToVector(codesVector);
+    int readListTime = readCodesToList(codesList);
+    int readSetTime = readCodesToSet(codesSet);
 
     cout << "--" << readSetTime << "--" << endl;
     cout << "Operation    Vector      List       Set" << endl;
@@ -29,25 +33,28 @@ int main() {
     printRightJustified(to_string(readSetTime), 10); 
     cout << endl;
 
+    int sortVectorTime = sortVector();
+    int sortListTime = sortList();
+    int sortSetTime = sortSet();
+
     printRightJustified("Sort", 9);
-    printRightJustified(to_string(readVectorTime), 10); 
-    printRightJustified(to_string(readListTime), 10); 
-    printRightJustified(to_string(readSetTime), 10); 
+    printRightJustified(to_string(), 10); 
+    printRightJustified(to_string(), 10); 
+    printRightJustified(to_string(), 10); 
     cout << endl;
 
     return 0;
 }
 
-int readCodesToVector()
+int readCodesToVector(vector<string> &codesVector)
 {
     ifstream fin("Codes.txt");
-    vector<string> codes;
     string code;
 
     auto start = high_resolution_clock::now();
     while (fin >> code)
     {
-        codes.push_back(code);
+        codesVector.push_back(code);
     }
 
     auto end = high_resolution_clock::now();
@@ -58,16 +65,15 @@ int readCodesToVector()
     return duration.count() * 1000; // converting from milliseconds to microseconds
 }
 
-int readCodesToList()
+int readCodesToList(list<string> &codesList)
 {
     ifstream fin("Codes.txt");
-    list<string> codes;
     string code;
 
     auto start = high_resolution_clock::now();
     while (fin >> code)
     {
-        codes.push_back(code);
+        codesList.push_back(code);
     }
 
     auto end = high_resolution_clock::now();
@@ -78,18 +84,17 @@ int readCodesToList()
     return duration.count() * 1000;
 }
 
-int readCodesToSet()
+int readCodesToSet(set<string> &codesSet)
 {
     ifstream fin("Codes.txt");
-    set<string> codes;
     string code;
 
     auto start = high_resolution_clock::now();
     while (fin >> code)
     {
-        codes.insert(code);
+        codesSet.insert(code);
     }
-4
+
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
@@ -107,7 +112,7 @@ int sortVector(vector<string> &codes)
 {
     auto start = high_resolution_clock::now();
     
-    sort(codes.begin(), codes.end(), greater<int>());
+    sort(codes.begin(), codes.end());
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
