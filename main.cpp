@@ -9,6 +9,7 @@ using namespace std::chrono;
 int readCodesToVector();
 int readCodesToList();
 int readCodesToSet();
+void printRightJustified(string text, int width);
 
 int main() {
     int readVectorTime = readCodesToVector();
@@ -16,7 +17,8 @@ int main() {
     int readSetTime = readCodesToSet();
 
     cout << "Operation\tVector\tList\tSet" << endl;
-    cout << "Read\t" << readVectorTime << "\t" << readListTime << "\t" << readSetTime << endl;
+    printRightJustified("Read", 9);
+    cout << "\t" << readVectorTime << "\t" << readListTime << "\t" << readSetTime << endl;
 
     return 0;
 }
@@ -30,63 +32,65 @@ duration.count() references elapsed milliseconds
 
 int readCodesToVector()
 {
-    auto start = high_resolution_clock::now();
-
     ifstream fin("Codes.txt");
     vector<string> codes;
     string code;
 
+    auto start = high_resolution_clock::now();
     while (fin >> code)
     {
         codes.push_back(code);
     }
 
-    fin.close();
-
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
+
+    fin.close();
 
     return duration.count() * 1000; // converting from milliseconds to microseconds
 }
 
 int readCodesToList()
 {
-    auto start = high_resolution_clock::now();
-
     ifstream fin("Codes.txt");
     list<string> codes;
     string code;
 
+    auto start = high_resolution_clock::now();
     while (fin >> code)
     {
         codes.push_back(code);
     }
 
-    fin.close();
-
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
+
+    fin.close();
 
     return duration.count() * 1000;
 }
 
 int readCodesToSet()
 {
-    auto start = high_resolution_clock::now();
-
     ifstream fin("Codes.txt");
     set<string> codes;
     string code;
 
+    auto start = high_resolution_clock::now();
     while (fin >> code)
     {
         codes.insert(code);
     }
 
-    fin.close();
-
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
+    fin.close();
+
     return duration.count() * 1000;
+}
+
+void printRightJustified(string text, int width) 
+{
+    cout << setw(width) << text;
 }
