@@ -58,6 +58,16 @@ int main() {
     printRightJustified(to_string(insertSetTime), 10); 
     cout << endl;
 
+    int deleteVectorTime = deleteVector(codesVector);
+    int deleteListTime = deleteList(codesList);
+    int deleteSetTime = deleteSet(codesSet);
+
+    printRightJustified("Delete", 9);
+    printRightJustified(to_string(deleteVectorTime), 10); 
+    printRightJustified(to_string(deleteListTime), 10); 
+    printRightJustified(to_string(deleteSetTime), 10); 
+    cout << endl;
+
     return 0;
 }
 
@@ -73,11 +83,11 @@ int readCodesToVector(vector<string> &codesVector)
     }
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
     fin.close();
 
-    return duration.count() * 1000; // converting from milliseconds to microseconds
+    return duration.count();
 }
 
 int readCodesToList(list<string> &codesList)
@@ -92,11 +102,11 @@ int readCodesToList(list<string> &codesList)
     }
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
     fin.close();
 
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int readCodesToSet(set<string> &codesSet)
@@ -111,11 +121,11 @@ int readCodesToSet(set<string> &codesSet)
     }
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
     fin.close();
 
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 void printRightJustified(string text, int width) 
@@ -130,9 +140,9 @@ int sortVector(vector<string> &codes)
     sort(codes.begin(), codes.end());
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int sortList(list<string> &codes)
@@ -142,9 +152,9 @@ int sortList(list<string> &codes)
     codes.sort();
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int sortSet(set<string> &codes)
@@ -160,11 +170,9 @@ int insertVector(vector<string> &codesVector)
     codesVector.insert(codesVector.begin() + 10000, "TESTCODE");
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    cout << "Vector size: " << codesVector.size() << endl;
-
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int insertList(list<string> &codesList)
@@ -175,11 +183,9 @@ int insertList(list<string> &codesList)
     codesList.insert(it, "TESTCODE");
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    cout << "List size: " << codesList.size() << endl;
-
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int insertSet(set<string> &codesSet)
@@ -189,53 +195,45 @@ int insertSet(set<string> &codesSet)
     codesSet.insert("TESTCODE");
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    cout << "Set size: " << codesSet.size() << endl;
-
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int deleteVector(vector<string> &codesVector)
 {
     auto start = high_resolution_clock::now();
     
-    codesVector.erase(codesVector.begin());
+    codesVector.erase(codesVector.begin() + 10000);
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    cout << "Vector size: " << codesVector.size() << endl;
-
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int deleteList(list<string> &codesList)
 {
     auto start = high_resolution_clock::now();
     
-    auto it = next(codesList.begin());
+    auto it = next(codesList.begin(), 10000);
     codesList.erase(it);
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    cout << "List size: " << codesList.size() << endl;
-
-    return duration.count() * 1000;
+    return duration.count();
 }
 
 int deleteSet(set<string> &codesSet)
 {
     auto start = high_resolution_clock::now();
     
-    auto it = next(codesSet.begin());
+    auto it = next(codesSet.begin(), 10000);
     codesSet.erase(it);
 
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<microseconds>(end - start);
 
-    cout << "Set size: " << codesSet.size() << endl;
-
-    return duration.count() * 1000;
+    return duration.count();
 }
