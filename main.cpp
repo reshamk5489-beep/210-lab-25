@@ -11,9 +11,12 @@ int readCodesToList();
 int readCodesToSet();
 
 int main() {
-    readCodesToVector();
-    readCodesToList();
-    readCodesToSet();
+    int readVectorTime = readCodesToVector();
+    int readListTime = readCodesToList();
+    int readSetTime = readCodesToSet();
+
+    cout << "Operation\tVector\tList\tSet" << endl;
+    cout << "Read\t" << readVectorTime << "\t" << readListTime << "\t" << readSetTime << endl;
 
     return 0;
 }
@@ -40,13 +43,10 @@ int readCodesToVector()
 
     fin.close();
 
-    cout << "Vector size: " << codes.size() << endl;
-    cout << "Vector[0]: " << codes[0] << endl;
-
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
-    return duration.count();
+    return duration.count() * 1000; // converting from milliseconds to microseconds
 }
 
 int readCodesToList()
@@ -64,12 +64,10 @@ int readCodesToList()
 
     fin.close();
 
-    cout << "List size: " << codes.size() << endl;
-
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
-    return duration.count();
+    return duration.count() * 1000;
 }
 
 int readCodesToSet()
@@ -87,10 +85,8 @@ int readCodesToSet()
 
     fin.close();
 
-    cout << "Set size: " << codes.size() << endl;
-
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
-    return duration.count();
+    return duration.count() * 1000;
 }
