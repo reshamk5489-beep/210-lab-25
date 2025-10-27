@@ -16,19 +16,16 @@ int main() {
     int readListTime = readCodesToList();
     int readSetTime = readCodesToSet();
 
-    cout << "Operation\tVector\tList\tSet" << endl;
+    cout << "--" << readSetTime << "--" << endl;
+    cout << "Operation    Vector      List       Set" << endl;
     printRightJustified("Read", 9);
-    cout << "\t" << readVectorTime << "\t" << readListTime << "\t" << readSetTime << endl;
+    printRightJustified(to_string(readVectorTime), 10); 
+    printRightJustified(to_string(readListTime), 10); 
+    printRightJustified(to_string(readSetTime), 10); 
+    cout << endl;
 
     return 0;
 }
-
-/* syntax examples:
-auto start = high_resolution_clock::now()
-auto end = high_resolution_clock::now()
-auto duration = duration_cast<milliseconds>(end - start)
-duration.count() references elapsed milliseconds
-*/
 
 int readCodesToVector()
 {
