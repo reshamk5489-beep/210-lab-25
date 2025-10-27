@@ -17,6 +17,9 @@ int sortSet(set<string> &codes);
 int insertVector(vector<string> &codesVector);
 int insertList(list<string> &codesList);
 int insertSet(set<string> &codesSet);
+int deleteVector(vector<string> &codesVector);
+int deleteList(list<string> &codesList);
+int deleteSet(set<string> &codesSet);
 
 int main() {
     vector<string> codesVector;
@@ -184,6 +187,50 @@ int insertSet(set<string> &codesSet)
     auto start = high_resolution_clock::now();
     
     codesSet.insert("TESTCODE");
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    cout << "Set size: " << codesSet.size() << endl;
+
+    return duration.count() * 1000;
+}
+
+int deleteVector(vector<string> &codesVector)
+{
+    auto start = high_resolution_clock::now();
+    
+    codesVector.erase(codesVector.begin());
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    cout << "Vector size: " << codesVector.size() << endl;
+
+    return duration.count() * 1000;
+}
+
+int deleteList(list<string> &codesList)
+{
+    auto start = high_resolution_clock::now();
+    
+    auto it = next(codesList.begin());
+    codesList.erase(it);
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    cout << "List size: " << codesList.size() << endl;
+
+    return duration.count() * 1000;
+}
+
+int deleteSet(set<string> &codesSet)
+{
+    auto start = high_resolution_clock::now();
+    
+    auto it = next(codesSet.begin());
+    codesSet.erase(it);
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
